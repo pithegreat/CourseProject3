@@ -1,4 +1,4 @@
-Enter file contents heretrain_raw = read.table("train/X_train.txt")
+train_raw = read.table("train/X_train.txt")
 train_activity = read.table("train/Y_train.txt")
 test_raw = read.table("test/X_test.txt")
 test_activity = read.table("test/Y_test.txt")
@@ -24,8 +24,6 @@ for (j in 1:length(measure_list$V2)){
     h = names(train_raw)[j]
     measurements = as.character(measure_list$V2)
     g = measurements[j]
-    f = paste('test',g)
-    g = paste('train',g)
     names(train_raw)[names(train_raw)==h] <- g
     names(test_raw)[names(test_raw)==h] <- g
   }
@@ -55,9 +53,8 @@ test_raw$subject = subject_test$V1
 train_raw = arrange(train_raw,subject,activity)
 test_raw = arrange(test_raw,subject,activity)
 f = train_raw %>% group_by(subject,activity) %>% summarise_each(funs(mean))
-f$connection = c(1:126)
 e = test_raw %>% group_by(subject,activity) %>% summarise_each(funs(mean))
-e$connection = c(1:54)
-fe = merge(f,e,by="connection",all.x=TRUE)
-write.table(fe,file="final.txt",row.name=FALSE)
+pl = rbind(f,e)
+pl = arrange(pl,subject,activity)
+write.table(pl,file="final.txt",row.name=FALSE)
 
