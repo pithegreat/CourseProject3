@@ -1,5 +1,6 @@
 # CourseProject3
 This project was very ardous and took a lot of thinking, imagination, will, and sacrafice to do.
+
 "run_analysis.R" is not as complicated as it looks.  
 Here are the basic steps:
 
